@@ -61,6 +61,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
+import kotlin.random.URandomKt;
 import kotlinx.coroutines.GlobalScope;
 
 import static android.app.Activity.RESULT_OK;
@@ -264,10 +265,13 @@ public class CreatePostFragment extends Fragment {
 
     private void uploadPost(String postCaption, Bitmap bitmap) {
         Log.d(TAG,"Entering uploadpost method");
-        String filePathName = "Users/" + "UserId/" + userId + "Post";
+        final String timestamp = String.valueOf(System.currentTimeMillis());
+        String filePathName = "Users/" + "UserId/".concat(userId) + "Post"+timestamp;
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //        bitmap.compress(Bitmap.CompressFormat.PNG, 240000, byteArrayOutputStream);
 //        byte[] data = byteArrayOutputStream.toByteArray();
+
+
 
         final int lnth=bitmap.getByteCount();
         ByteBuffer dst= ByteBuffer.allocate(lnth);
@@ -294,7 +298,7 @@ public class CreatePostFragment extends Fragment {
 
                             db.collection("Users").document(userId)
                                     .collection("userPost")
-                                    .document("post")
+                                    .document(timestamp)
                                     .set(hashMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
