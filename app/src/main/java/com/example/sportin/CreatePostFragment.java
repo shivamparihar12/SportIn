@@ -17,6 +17,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -309,6 +311,8 @@ public class CreatePostFragment extends Fragment {
                                             postImageUri = null;
                                             postImage.setImageURI(null);
                                             //TODO: navigate from this fragment to home fragment.
+                                            NavController navController= Navigation.findNavController(getActivity(),R.id.nav_host_fragment);
+                                            navController.navigate(R.id.homeFragment);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
