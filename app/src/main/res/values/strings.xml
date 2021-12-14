@@ -10,4 +10,5 @@
     <string name="xyz_gmail_com">xyz@gmail.com</string>
     <string name="email_address">Email Address</string>
     <string name="create_post">Create Post</string>
+    <string name="phone_number">\tPhone Number</string>
 </resources>
