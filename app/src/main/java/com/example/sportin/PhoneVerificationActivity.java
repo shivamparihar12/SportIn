@@ -42,6 +42,14 @@ public class PhoneVerificationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+        getCountryDialCode();
+        binding.countryCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CountryCodeDialog countryCodeDialog=new CountryCodeDialog();
+                countryCodeDialog.show(getSupportFragmentManager(),"CountryCodeDialog");
+            }
+        });
         binding.getOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +59,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                 else {
                     binding.getOtpLayout.setVisibility(View.GONE);
                     binding.verifyOtpLayout.setVisibility(View.VISIBLE);
-                    startPhoneNoVerification("+91"+binding.phoneNo.getText().toString());
+                    startPhoneNoVerification(binding.countryCode.getText().toString()+binding.phoneNo.getText().toString());
                 }
             }
         });
@@ -154,5 +162,25 @@ public class PhoneVerificationActivity extends AppCompatActivity {
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
+
+    public String getCountryDialCode() {
+        String countryID = null;
+        String contryDialCode = null;
+
+        TelephonyManager telephonyMngr = (TelephonyManager) PhoneVerificationActivity.this.getSystemService(this.TELEPHONY_SERVICE);
+
+        countryID = telephonyMngr.getSimCountryIso().toUpperCase();
+        String[] arrContryCode = this.getResources().getStringArray(R.array.DialingCountryCode);
+        for (int i = 0; i < arrContryCode.length; i++) {
+            String[] arrDial = arrContryCode[i].split(",");
+            if (arrDial[1].trim().equals(countryID.trim())) {
+                contryDialCode = arrDial[0];
+                break;
+            }
+            //countryCodeObjects.add(new countryCodeObject(arrDial[0].trim(), arrDial[1].trim()));
+        }
+        return contryDialCode;
+    }
+
 
 }
