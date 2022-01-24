@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
 
         getCountryDialCode();
+        binding.countryCode.setText("+".concat(getCountryDialCode()));
         binding.countryCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,6 +142,7 @@ public class PhoneVerificationActivity extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
                             // Update UI
+                            startActivity(new Intent(PhoneVerificationActivity.this,BuildProfileActivity.class));
                             Toast.makeText(PhoneVerificationActivity.this, "Succeeded", Toast.LENGTH_SHORT).show();
                         } else {
                             // Sign in failed, display a message and update the UI

@@ -9,10 +9,9 @@ public class UserDetail {
 
     }
 
-    public UserDetail( String userName, String professionSport, String funSport){
+    public UserDetail( String userName, String professionSport){
         this.userName=userName;
         this.professionSport=professionSport;
-        this.funSport = funSport;
     }
 
 //    public UserDetail( String userName, String professionSport){
